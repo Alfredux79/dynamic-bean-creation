@@ -15,15 +15,17 @@ import io.alfredux.spring.dynamicbean.service.ActuatorConfigurationService;
 public class ReloadConfigurationController {
 	
 	@Autowired
-	ActuatorConfigurationService actuatorReaderService;
+	ActuatorConfigurationService actuatorConfigurationService;
 	
 	@GetMapping("reload")
 	public ResponseEntity<List<String>> reloadConfiguration(){
 		
 		ResponseEntity<List<String>> response = new ResponseEntity<>(
-				actuatorReaderService.readCongiguration(),
+				actuatorConfigurationService.readCongiguration(),
 				HttpStatus.ACCEPTED
 				);
+		
+		actuatorConfigurationService.reloadBeans();
 		
 		return response;
 	}
